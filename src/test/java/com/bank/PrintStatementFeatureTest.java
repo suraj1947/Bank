@@ -4,20 +4,24 @@ import static org.mockito.Mockito.inOrder;
 import static org.mockito.Mockito.mock;
 
 import io.micronaut.test.extensions.junit5.annotation.MicronautTest;
+import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InOrder;
 
 @MicronautTest
-public class PrintStatementFeatureTest {
+ class PrintStatementFeatureTest {
 
   private Console console;
   private Account account;
   private TransactionRepository transactionRepository;
+  private StatementPrinter statementPrinter;
 
   @BeforeEach
   void init() {
-    account = new Account(transactionRepository);
+    transactionRepository = new TransactionRepository();
+    statementPrinter = new StatementPrinter();
+    account = new Account(transactionRepository, statementPrinter);
     console = mock(Console.class);
   }
 
@@ -34,7 +38,6 @@ public class PrintStatementFeatureTest {
     inOrder.verify(console).printLine("10/05/2022   |1000     |1000");
     inOrder.verify(console).printLine("11/05/2022   | -500    |500");
     inOrder.verify(console).printLine("13/05/2022   |1000     |1500");
-
 
   }
 
