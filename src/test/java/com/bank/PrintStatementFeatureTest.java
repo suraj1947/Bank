@@ -1,14 +1,12 @@
 package com.bank;
 
-import static org.mockito.Mockito.inOrder;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
 
 import io.micronaut.test.extensions.junit5.annotation.MicronautTest;
 import java.time.LocalDate;
-import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.InOrder;
 
 @MicronautTest
  class PrintStatementFeatureTest {
@@ -33,11 +31,10 @@ import org.mockito.InOrder;
 
     account.printStatement();
 
-    InOrder inOrder = inOrder(console);
-    inOrder.verify(console).printLine("DATE|AMOUNT|BALANCE");
-    inOrder.verify(console).printLine(LocalDate.now()+"|"+1000+"|1000");
-    inOrder.verify(console).printLine(LocalDate.now()+"|"+(-500)+"|500");
-    inOrder.verify(console).printLine(LocalDate.now()+"|"+1000+"|1500");
+    verify(console).printLine("DATE|AMOUNT|BALANCE");
+    verify(console).printLine(LocalDate.now()+"|"+1000+"|1000");
+    verify(console).printLine(LocalDate.now()+"|"+(-500)+"|500");
+    verify(console).printLine(LocalDate.now()+"|"+1000+"|1500");
 
   }
 
